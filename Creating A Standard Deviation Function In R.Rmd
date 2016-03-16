@@ -1,0 +1,36 @@
+---
+title: "Writing A Standard Deviation Function In R"
+author: "Geoffery Mullings"
+date: "March 16, 2016"
+output: word_document
+---
+
+Creating functions in R can be a convenient way to automate repetitive processes in analysis, improiving efficiency.
+
+Here's a simple replication of the base statistics package's standard deviation function. First, an example of the base function in action:
+
+```{r}
+test = c(1, 5, 64, 22)
+sd(test)
+```
+
+Now let's replicate the function, in the process giving step by step instructions on how to calculate a standard deviation.
+
+```{r}
+mySD = function(x){
+themean = mean(x) #Calculate the mean of the observations
+N = length(x) #N is a variable to make accessing the count of observations simple.
+distmean = {} #Initializing the variable that will store our distances from the mean.
+for (i in 1:N) {distmean = c(distmean, x[i]-themean)} #Looping over the observations, these commands pull the distance of each observation from the mean and stores the value in our "distmean" variable.
+underroot = sum(distmean^2)/(N-1) #Underroot is the variable that will be square rooted, it contains the sum of our squared distances over the number of observations minus 1 - to account for the limited degrees of freedom.
+return(sqrt(underroot))}
+```
+
+Does it work?
+
+```{r}
+sd(test)
+mySD(test)
+```
+
+Doors are opened when you learn how to write functions in R.
